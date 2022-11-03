@@ -1,1 +1,1 @@
-## React, Typescript, Webpack
+## React, Typescript, Tailwindcss with Webpack

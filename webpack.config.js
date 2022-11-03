@@ -47,7 +47,6 @@ const commonConfig = {
     new HtmlWebpackPlugin({
       template: './index.html',
       filename: 'index.html',
-      title: 'Webpack Setup',
     }),
   ],
 }

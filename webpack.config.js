@@ -2,11 +2,10 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
 const WebpackBar = require("webpackbar");
 const webpack = require("webpack");
+const { merge } = require("webpack-merge");
+const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 
-/** @type {import('webpack').Configuration} */
-module.exports = {
-    mode: "development",
-    devtool: "inline-source-map",
+const commonConfig = {
     entry: "./src/index.tsx",
     output: {
         filename: "bundle.js",
@@ -39,9 +38,7 @@ module.exports = {
     resolve: {
         extensions: [".tsx", ".ts", ".js"],
     },
-    devServer: {
-        hot: true,
-    },
+
     plugins: [
         new WebpackBar(),
         new webpack.ProvidePlugin({
@@ -53,4 +50,24 @@ module.exports = {
             title: "Webpack Setup",
         }),
     ],
+};
+
+/** @type {import('webpack').Configuration} */
+const devConfig = {
+    mode: "development",
+    devtool: "cheap-module-source-map",
+    devServer: {
+        hot: true,
+    },
+    plugins: [new ReactRefreshWebpackPlugin()],
+};
+
+/** @type {import('webpack').Configuration} */
+const prodConfig = {
+    mode: "production",
+    devtool: "source-map",
+};
+
+module.exports = ({ env }) => {
+    return env === "dev" ? merge(commonConfig, devConfig) : merge(commonConfig, prodConfig);
 };

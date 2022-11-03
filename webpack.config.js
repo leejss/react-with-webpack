@@ -4,7 +4,6 @@ const WebpackBar = require('webpackbar')
 const webpack = require('webpack')
 const { merge } = require('webpack-merge')
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
-const CopyPlugin = require('copy-webpack-plugin')
 
 const commonConfig = {
   entry: './src/index.tsx',
@@ -49,14 +48,6 @@ const commonConfig = {
       template: './index.html',
       filename: 'index.html',
       title: 'Webpack Setup',
-    }),
-    new CopyPlugin({
-      patterns: [
-        {
-          from: 'source',
-          to: 'desc',
-        },
-      ],
     }),
   ],
 }
